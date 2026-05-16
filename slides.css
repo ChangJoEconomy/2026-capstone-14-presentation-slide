@@ -48,7 +48,7 @@ body {
   pointer-events: none;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   transform: translateX(50px);
-  padding: 60px 80px 100px 80px;
+  padding: 48px 80px 48px 80px;
   overflow-y: auto;
   overflow-x: hidden;
 }
@@ -355,7 +355,7 @@ h3.sl-title {
 
 .comparison-table-wrap {
   width: 100%;
-  max-width: 1120px;
+  max-width: 1260px;
   overflow: hidden;
   border-radius: var(--r);
   background: var(--white);
@@ -372,18 +372,18 @@ h3.sl-title {
 
 .comparison-table th,
 .comparison-table td {
-  padding: 14px 16px;
+  padding: 18px 20px;
   border-bottom: 1px solid rgba(0, 0, 0, .06);
   vertical-align: top;
-  font-size: .78rem;
-  line-height: 1.55;
+  font-size: .92rem;
+  line-height: 1.58;
   color: var(--text2);
 }
 
 .comparison-table th {
   background: rgba(0, 98, 255, .07);
   color: var(--text);
-  font-size: .72rem;
+  font-size: .84rem;
   font-weight: 800;
 }
 
@@ -419,7 +419,7 @@ h3.sl-title {
   border-radius: 6px;
   background: rgba(0, 184, 122, .09);
   color: var(--accent2);
-  font-size: .72rem;
+  font-size: .84rem;
   font-weight: 800;
 }
 
@@ -1003,8 +1003,8 @@ h3.sl-title {
 }
 
 .architecture-frame {
-  width: fit-content;
-  max-width: 980px;
+  width: min(100%, 1240px);
+  max-width: 1240px;
   margin: 0 auto;
   overflow: hidden;
   background: var(--white);
@@ -1016,8 +1016,8 @@ h3.sl-title {
 
 .architecture-frame img {
   display: block;
-  max-width: 100%;
-  max-height: 520px;
+  width: 100%;
+  max-height: 650px;
   object-fit: contain;
   border-radius: var(--r2);
 }
@@ -1261,11 +1261,28 @@ h3.sl-title {
 }
 
 /* NAVIGATION */
-.nav-bar {
+.nav-zone {
   position: fixed;
-  bottom: 24px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 28px;
+  z-index: 100;
+  transition: height .2s ease;
+}
+
+.nav-zone:hover,
+.nav-zone:focus-within {
+  height: 104px;
+}
+
+.nav-bar {
+  position: absolute;
+  bottom: 16px;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translate(-50%, calc(100% + 32px));
+  opacity: 0;
+  pointer-events: none;
   display: flex;
   align-items: center;
   gap: 12px;
@@ -1273,7 +1290,14 @@ h3.sl-title {
   backdrop-filter: blur(12px);
   padding: 10px 20px;
   border-radius: 40px;
-  z-index: 100;
+  transition: transform .22s ease, opacity .18s ease;
+}
+
+.nav-zone:hover .nav-bar,
+.nav-zone:focus-within .nav-bar {
+  transform: translate(-50%, 0);
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .nav-btn {
