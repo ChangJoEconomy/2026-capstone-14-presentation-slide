@@ -739,6 +739,7 @@
     let cur = 0;
     const dots = document.getElementById('navDots');
     const count = document.getElementById('navCount');
+    const deck = document.getElementById('deck');
 
     slides.forEach((_, i) => {
       const d = document.createElement('button');
@@ -772,6 +773,47 @@
 
     document.getElementById('prevBtn').onclick = () => go(cur - 1);
     document.getElementById('nextBtn').onclick = () => go(cur + 1);
+
+    // Mobile swipe navigation
+    let swipeStartX = 0;
+    let swipeStartY = 0;
+    let swipeTracking = false;
+
+    function mobileSwipeEnabled() {
+      return window.matchMedia('(max-width: 768px)').matches;
+    }
+
+    function shouldIgnoreSwipe(target) {
+      return target.closest('.nav-zone, button, a, input, textarea, select');
+    }
+
+    deck.addEventListener('touchstart', e => {
+      if (!mobileSwipeEnabled() || e.touches.length !== 1 || shouldIgnoreSwipe(e.target)) return;
+      swipeStartX = e.touches[0].clientX;
+      swipeStartY = e.touches[0].clientY;
+      swipeTracking = true;
+    }, { passive: true });
+
+    deck.addEventListener('touchend', e => {
+      if (!swipeTracking || !mobileSwipeEnabled() || e.changedTouches.length !== 1) {
+        swipeTracking = false;
+        return;
+      }
+
+      const dx = e.changedTouches[0].clientX - swipeStartX;
+      const dy = e.changedTouches[0].clientY - swipeStartY;
+      const absX = Math.abs(dx);
+      const absY = Math.abs(dy);
+
+      swipeTracking = false;
+
+      if (absX < 56 || absX < absY * 1.25) return;
+      go(dx < 0 ? cur + 1 : cur - 1);
+    }, { passive: true });
+
+    deck.addEventListener('touchcancel', () => {
+      swipeTracking = false;
+    }, { passive: true });
 
     // Keyboard navigation
     document.addEventListener('keydown', e => {

@@ -1414,8 +1414,30 @@ h3.sl-title {
 
 /* --- MOBILE RESPONSIVE OPTIMIZATION --- */
 @media (max-width: 768px) {
+  html,
+  body,
+  .deck {
+    height: 100dvh;
+  }
+
   .slide {
-    padding: 32px 20px 80px 20px;
+    padding: 28px 16px 96px 16px;
+    min-height: 100dvh;
+    touch-action: pan-y;
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .sl-full {
+    gap: 20px;
+    align-items: stretch;
+    justify-content: flex-start;
+    min-height: auto;
+  }
+
+  .sl-full::before,
+  .sl-full::after {
+    display: none;
   }
 
   h1.sl-title { font-size: 1.8rem; margin-bottom: 12px; }
@@ -1429,10 +1451,17 @@ h3.sl-title {
     gap: 32px;
     align-content: flex-start;
     direction: ltr;
+    min-height: auto;
   }
   
   .sl-split.reverse > * {
     direction: ltr;
+  }
+
+  .sl-left,
+  .sl-right {
+    min-width: 0;
+    justify-content: flex-start;
   }
 
   .card-grid.c2, 
@@ -1472,13 +1501,124 @@ h3.sl-title {
     font-size: 0.75rem;
   }
 
-  .comparison-table-wrap, 
-  .logic-table, 
-  .gate-table {
+  .comparison-table-wrap {
+    overflow: visible;
+  }
+
+  .comparison-table,
+  .comparison-table thead,
+  .comparison-table tbody,
+  .comparison-table tr,
+  .comparison-table th,
+  .comparison-table td {
     display: block;
-    overflow-x: auto;
-    white-space: nowrap;
-    -webkit-overflow-scrolling: touch;
+    width: 100%;
+  }
+
+  .comparison-table {
+    table-layout: auto;
+  }
+
+  .comparison-table th:nth-child(1),
+  .comparison-table td:nth-child(1),
+  .comparison-table th:nth-child(2),
+  .comparison-table td:nth-child(2),
+  .comparison-table th:nth-child(3),
+  .comparison-table td:nth-child(3),
+  .comparison-table th:nth-child(4),
+  .comparison-table td:nth-child(4) {
+    width: 100%;
+  }
+
+  .comparison-table thead {
+    display: none;
+  }
+
+  .comparison-table tr {
+    padding: 14px 14px 12px;
+    border-bottom: 1px solid rgba(0, 0, 0, .08);
+  }
+
+  .comparison-table tr:last-child {
+    border-bottom: none;
+  }
+
+  .comparison-table td {
+    display: grid;
+    grid-template-columns: 86px minmax(0, 1fr);
+    gap: 10px;
+    padding: 7px 0;
+    border-bottom: none;
+    font-size: .78rem;
+    line-height: 1.48;
+    white-space: normal;
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+  }
+
+  .comparison-table td::before {
+    color: var(--accent);
+    font-size: .7rem;
+    font-weight: 800;
+  }
+
+  .comparison-table td:nth-child(1)::before { content: '유형'; }
+  .comparison-table td:nth-child(2)::before { content: '대표 사례'; }
+  .comparison-table td:nth-child(3)::before { content: '제공 기능'; }
+  .comparison-table td:nth-child(4)::before { content: '한계'; }
+
+  .app-type {
+    width: fit-content;
+    min-height: auto;
+    padding: 4px 8px;
+    font-size: .76rem;
+  }
+
+  .logic-table,
+  .logic-table tbody,
+  .logic-table tr,
+  .logic-table th,
+  .logic-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .logic-table {
+    margin-top: 14px;
+    overflow: visible;
+  }
+
+  .logic-table tr {
+    border-bottom: 1px solid rgba(0, 0, 0, .07);
+  }
+
+  .logic-table tr:last-child {
+    border-bottom: none;
+  }
+
+  .logic-table th,
+  .logic-table td {
+    border-bottom: none;
+    padding: 10px 12px;
+    white-space: normal;
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+  }
+
+  .logic-table th {
+    font-size: .76rem;
+  }
+
+  .logic-table td {
+    padding-top: 0;
+    font-size: .76rem;
+    line-height: 1.5;
+  }
+
+  .gate-table {
+    display: table;
+    overflow: visible;
+    white-space: normal;
   }
 
   .arch-flow {
@@ -1524,5 +1664,30 @@ h3.sl-title {
   .problem-question {
     padding: 16px;
     font-size: 0.95rem;
+  }
+
+  .algorithm-visual {
+    gap: 12px;
+  }
+
+  .algorithm-image-pair {
+    min-height: 0;
+  }
+
+  .algorithm-image-pair img {
+    height: auto;
+    max-height: 210px;
+    object-fit: contain;
+    background: var(--white);
+  }
+
+  .joint-angle-diagram {
+    min-height: 0;
+    padding: 10px;
+  }
+
+  .joint-angle-diagram svg {
+    height: auto;
+    max-height: 170px;
   }
 }
